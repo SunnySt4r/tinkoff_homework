@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    image: tinkoff-homework:0.0.1
+    container_name: hw_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8080"
+    depends_on:
+      - database
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database/hw_db
+
+  database:
+    image: postgres:14-alpine3.18
+    container_name: hw_db
+    environment:
+      POSTGRES_DB: "hw_db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "15432:5432"

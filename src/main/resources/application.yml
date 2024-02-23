@@ -1,0 +1,11 @@
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+    path: /graphql
+  liquibase:
+    change-log: classpath:/db/db-changelog.xml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hw_db
+    username: user
+    password: password
