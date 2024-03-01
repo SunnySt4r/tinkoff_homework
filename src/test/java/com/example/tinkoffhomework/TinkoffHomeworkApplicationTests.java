@@ -1,13 +1,14 @@
 package com.example.tinkoffhomework;
 
-//import org.junit.jupiter.api.Test;
-//import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
-class TinkoffHomeworkApplicationTests {
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//    @Test
-    void contextLoads() {
+@SpringBootTest
+public class TinkoffHomeworkApplicationTests {
+
+    @Test
+    public void contextLoads() {
     }
 
 }

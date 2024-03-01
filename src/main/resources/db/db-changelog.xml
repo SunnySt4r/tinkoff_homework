@@ -6,5 +6,6 @@
 
 
     <include file="db/migrations/2024-02-20-create-message-table-seq.xml"/>
+    <include file="db/migrations/2024-02-28-create-image-table-seq.xml"/>
 
 </databaseChangeLog>
