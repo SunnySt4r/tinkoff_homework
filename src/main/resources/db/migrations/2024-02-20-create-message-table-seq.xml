@@ -7,7 +7,7 @@
 
     <changeSet id="2024-02-20-create-message-table-seq" author="SunnySt4r">
         <createTable tableName="message">
-            <column name="id" type="int">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="text" type="text">

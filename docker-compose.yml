@@ -1,18 +1,22 @@
 version: "3"
 services:
-  app:
-    image: tinkoff-homework:0.0.1
-    container_name: hw_app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8181:8080"
-    depends_on:
-      - database
-    environment:
-      - SERVER_PORT=8080
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://database/hw_db
+#  sender:
+#    image: tinkoff-homework:0.0.2
+#    container_name: sender
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8181:8080"
+#    depends_on:
+#      - database
+#      - mongodb
+#      - minio
+#    environment:
+#      - SERVER_PORT=8080
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://database/hw_db
+#      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/sender
+#      - MINIO_URL=http://minio:9000
 
   database:
     image: postgres:14-alpine3.18
@@ -24,3 +28,47 @@ services:
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     ports:
       - "15432:5432"
+    volumes:
+      - sender-db:/data/postgres
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: sender
+    volumes:
+      - ./environment/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - sender-mongodb:/data/mongo
+      - sender-mongo-config:/data/configdb
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --logLevel warning --requirepass password
+    volumes:
+      - sender-redis:/data
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: password
+    volumes:
+      - ./environment/minio/data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address :9001
+
+volumes:
+  sender-db:
+  sender-mongodb:
+  sender-mongo-config:
+  sender-redis:
+  storage-minio:

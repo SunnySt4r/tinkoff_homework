@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="2024-02-28-create-image-table-seq" author="SunnySt4r">
+
+        <addColumn tableName="message">
+            <column name="last_modified" type="timestamp without time zone" defaultValue="now()">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+
+
+        <createTable tableName="image">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="size" type="bigint">
+            </column>
+            <column name="name" type="text">
+            </column>
+            <column name="link" type="text">
+            </column>
+        </createTable>
+
+        <createSequence incrementBy="1"
+                        minValue="1"
+                        sequenceName="image_id_seq"/>
+
+        <createTable tableName="messages_images">
+            <column name="message_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="messages_images"
+                       columnNames="message_id, image_id"
+                       constraintName="message_image_pk"/>
+
+        <addForeignKeyConstraint baseTableName="messages_images"
+                                 baseColumnNames="message_id"
+                                 constraintName="message_images_messages_fk"
+                                 referencedTableName="message"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="messages_images"
+                                 baseColumnNames="image_id"
+                                 constraintName="message_images_images_fk"
+                                 referencedTableName="image"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
