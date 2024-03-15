@@ -11,7 +11,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>tinkoff-homework</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>tinkoff-homework</name>
     <description>tinkoff-homework</description>
 
@@ -25,6 +25,7 @@
         <mongodb-driver-sync.version>4.11.1</mongodb-driver-sync.version>
         <mongodb-crypt.version>1.8.0</mongodb-crypt.version>
         <java.version>17</java.version>
+        <jwt.version>0.12.3</jwt.version>
     </properties>
     <dependencies>
         <!--Spring-->
@@ -104,6 +105,28 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--JWT-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

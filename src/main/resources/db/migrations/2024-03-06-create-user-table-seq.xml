@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="2024-03-06-create-user-table-seq" author="SunnySt4r">
+
+        <createTable tableName="users">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(300)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(300)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="role" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence incrementBy="1"
+                        minValue="1"
+                        sequenceName="user_id_seq"/>
+
+        <sql>
+--             password = password
+            INSERT INTO users(id, username, password, email, role)
+            VALUES ('0', 'admin', '$2a$10$4Jy8aiphhZgkBVYSWkSRdeC8fJJQWYF05/FBeeEvmgxoESyHu0vIm', 'admin@email.com',
+                    'ROLE_ADMIN')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

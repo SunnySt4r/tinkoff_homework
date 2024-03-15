@@ -8,6 +8,7 @@ import com.example.tinkoffhomework.exception.ImagesNotFoundException;
 import com.example.tinkoffhomework.exception.MessageNotFoundException;
 import com.example.tinkoffhomework.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class MessageController{
     private final MessageService messageService;
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<MessageDto> getMessages() {
         return messageService.getAllMessages();
     }
